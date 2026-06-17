@@ -1,6 +1,15 @@
 #!/bin/bash
 # Project factory for the attendance tracker
 read -p "Enter a student name: " user_input
+cleanup() {
+    echo ""
+    echo "Interrupted! Archiving current state..."
+    tar -czf "attendance_tracker_${user_input}_archive.tar.gz" "attendance_tracker_${user_input}"
+    rm -rf "attendance_tracker_${user_input}"
+    echo "Archive created and incomplete folder removed."
+    exit 1
+}
+trap cleanup SIGINT
 mkdir -p "attendance_tracker_${user_input}"
 mkdir -p "attendance_tracker_${user_input}/Helpers"
 mkdir -p "attendance_tracker_${user_input}/reports"  
