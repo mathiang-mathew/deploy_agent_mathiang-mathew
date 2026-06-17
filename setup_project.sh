@@ -93,3 +93,17 @@ read -p "Enter new Warning threshold [default 75]: " new_warning
     sed -i "s/\"warning\": [0-9]*/\"warning\": ${new_warning}/" "attendance_tracker_${user_input}/Helpers/config.json"
     sed -i "s/\"failure\": [0-9]*/\"failure\": ${new_failure}/" "attendance_tracker_${user_input}/Helpers/config.json"
 fi
+echo ""
+echo "=== Health Check ==="
+if command -v python3 &>/dev/null; then
+    echo "python3 is installed: $(python3 --version)"
+else
+    echo "WARNING: python3 is not installed"
+fi
+
+if [ -d "attendance_tracker_${user_input}/Helpers" ] && [ -d "attendance_tracker_${user_input}/reports" ]; then
+    echo "Directory structure verified successfully"
+else
+    echo "WARNING: Directory structure is incomplete"
+fi
+echo "=== Setup Complete ==="
