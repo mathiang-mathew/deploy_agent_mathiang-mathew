@@ -74,7 +74,8 @@ def run_attendance_check():
 if __name__ == "__main__":
     run_attendance_check()
 EOF
-
+read -p "Do you want to update the thresholds? (y/n): " update_choice
+if [ "$update_choice" = "y" ]; then
 read -p "Enter new Warning threshold [default 75]: " new_warning
     new_warning=${new_warning:-75}
     read -p "Enter new Failure threshold [default 50]: " new_failure
@@ -82,3 +83,4 @@ read -p "Enter new Warning threshold [default 75]: " new_warning
     echo "Warning will be ${new_warning}, Failure will be ${new_failure}"
     sed -i "s/\"warning\": [0-9]*/\"warning\": ${new_warning}/" "attendance_tracker_${user_input}/Helpers/config.json"
     sed -i "s/\"failure\": [0-9]*/\"failure\": ${new_failure}/" "attendance_tracker_${user_input}/Helpers/config.json"
+fi
